@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Evanston Medical - About Us</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a2a3a;
+      overflow-x: hidden;
+    }
+
+    /* Color Variables - Medical Theme */
+    :root {
+      --primary: #0f6e6b;
+      --primary-dark: #0a5250;
+      --primary-light: #2c9c98;
+      --secondary: #2c7da0;
+      --accent: #61a5c2;
+      --light-bg: #f0f7f6;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Scroll Animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .animate-up {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .animate-left {
+      animation: fadeInLeft 0.8s ease forwards;
+    }
+
+    .animate-right {
+      animation: fadeInRight 0.8s ease forwards;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      /* padding: 16px 0; */
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 100px;
+      height: 100px;
+      /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* box-shadow: var(--shadow-sm); */
+      overflow: hidden;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+
+    .logo-icon .logo-fallback {
+      color: white;
+      font-weight: 800;
+      font-size: 22px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: none;
+    }
+
+    .logo-text h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .logo-text p {
+      font-size: 0.7rem;
+      letter-spacing: 1.2px;
+      color: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--gray-800);
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
+        padding: 24px 0 16px;
+        text-align: center;
+      }
+      .nav-links.show { display: flex; }
+      .nav-container { padding: 0 20px; }
+      .logo-text h2 { font-size: 1rem; }
+      .logo-text p { font-size: 0.6rem; }
+      .logo-icon { 
+          width: 100px;
+        height: 100px;
+       }
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, rgba(15, 110, 107, 0.92), rgba(44, 124, 160, 0.88)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1600&h=400&fit=crop');
+      background-size: cover;
+      background-position: center;
+      padding: 80px 32px;
+      text-align: center;
+      color: white;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+    }
+
+
+
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 2rem; }
+      .page-header p { font-size: 1rem; }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* About Content */
+    .about-section {
+      padding: 60px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s;
+    }
+
+    .about-image img:hover {
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .about-text h2 { font-size: 1.6rem; }
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: var(--light-bg);
+      padding: 60px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--gray-600);
+      margin-top: 8px;
+    }
+
+    /* Products / Categories List (Long list) */
+    .categories-section {
+      padding: 60px 0;
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary-light);
+      margin: 16px auto 0;
+      border-radius: 3px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .category-item {
+      background: var(--gray-50);
+      padding: 15px 20px;
+      border-radius: 12px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-item i {
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .category-item span {
+      color: var(--gray-800);
+      font-weight: 500;
+    }
+
+    .category-item:hover {
+      background: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .category-item:hover i,
+    .category-item:hover span {
+      color: white;
+    }
+
+    /* Mission & Vision */
+    .mission-section {
+      background: var(--light-bg);
+      padding: 60px 0;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .mission-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 24px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .mission-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .mission-icon i {
+      font-size: 2rem;
+      color: white;
+    }
+
+    .mission-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      color: var(--primary-dark);
+    }
+
+    .mission-card p {
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Contact Info Bar */
+    .contact-bar {
+      background: var(--primary-dark);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .contact-bar h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .contact-details a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+
+    .contact-details a:hover {
+      color: var(--primary-light);
+    }
+
+    .contact-details i {
+      margin-right: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a2e2c;
+      color: #cbd5e6;
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-col h4 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-light);
+    }
+
+    .footer-col p {
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      color: #cbd5e6;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .footer-col ul li a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
+       position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 999;
+      animation: bounce 1.5s infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #128C7E;
+    }
+
+    .whatsapp-float i {
+      font-size: 2rem;
+      color: white;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo-area">
+      <div class="logo-icon">
+        <img src="/images/Logo.png" alt="Evanston Medical Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="logo-fallback" style="display: none;">EM</div>
+      </div>
+      <div class="logo-text">
+     
+      </div>
+    </div>
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="#" class="active">About Us</a>
+      <a href="/hot-sale.html">Hot Sale</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/contact-us.html">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+  <div class="page-header-content">
+    <h1>About Us</h1>
+    <p>Evanston is a trusted supplier of high-quality medical equipment, committed to delivering reliable and efficient healthcare solutions. We work with reputable manufacturers to ensure every product meets strict quality standards. Our goal is to make advanced medical technology accessible and affordable. We focus on building long-term relationships through excellent service and customer satisfaction.</p>
+   
+  </div>
+</section>
+
+<!-- Main About Content -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h2>Company Overview</h2>
+        <p>Evanston Medical Limited was founded in 2012 with a vision to provide top-tier medical and aesthetic equipment to healthcare professionals worldwide. Headquartered in London, UK, we specialize in manufacturing, sales, technical services, training, and OEM/ODM solutions.</p>
+        <p>With state-of-the-art production facilities and a dedicated R&D team, we develop advanced medical devices including Cryolipolysis, Laser Systems, HIFU, Shockwave Therapy, Pressotherapy, and multi-functional aesthetic platforms. Our products are trusted by hospitals, clinics, and beauty centers across Europe, Americas, Middle East, Africa, and Asia.</p>
+        <p>We operate under strict ISO standards and hold CE, FDA, and other international certifications. Our commitment to innovation, quality control, and customer satisfaction has made Evanston Medical a leading name in the medical aesthetics industry.</p>
+      </div>
+      <div class="about-image reveal">
+        <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&h=450&fit=crop" alt="Evanston Medical Facility">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card reveal"><div class="stat-number">12+</div><div class="stat-label">Years of Excellence</div></div>
+      <div class="stat-card reveal"><div class="stat-number">500+</div><div class="stat-label">Healthcare Partners</div></div>
+      <div class="stat-card reveal"><div class="stat-number">50+</div><div class="stat-label">Countries Exported</div></div>
+      <div class="stat-card reveal"><div class="stat-number">100+</div><div class="stat-label">R&D Professionals</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Long Product Categories List (like the reference) -->
+<section class="categories-section">
+  <div class="container">
+    <h2 class="section-title reveal">Our Product Range</h2>
+    <div class="categories-grid">
+      <div class="category-item"><i class="fas fa-fire"></i><span>Hot Sale Catalog</span></div>
+      <div class="category-item"><i class="fas fa-laser"></i><span>6D/10D Laser Shape Slimming Equipment</span></div>
+      <div class="category-item"><i class="fas fa-dumbbell"></i><span>HIEMTSURE Body Sculpting Machine</span></div>
+      <div class="category-item"><i class="fas fa-weight-scale"></i><span>SLIMMING MACHINE SERIES</span></div>
+      <div class="category-item"><i class="fas fa-waveform"></i><span>PMST Electromagnetic Transduction Therapy</span></div>
+      <div class="category-item"><i class="fas fa-spa"></i><span>Facial SPA Beauty Machine</span></div>
+      <div class="category-item"><i class="fas fa-snowflake"></i><span>Multifunctional Cryolipolysis Slimming Machine</span></div>
+      <div class="category-item"><i class="fas fa-thermometer"></i><span>Coolsculpting Body Shape Machine</span></div>
+      <div class="category-item"><i class="fas fa-hand-holding-heart"></i><span>Infrared Pressotherapy Lymph Drainage Machine</span></div>
+      <div class="category-item"><i class="fas fa-lightbulb"></i><span>Lipolaser Slimming Machine</span></div>
+      <div class="category-item"><i class="fas fa-bolt"></i><span>Diode Laser Hair Removal Machine</span></div>
+      <div class="category-item"><i class="fas fa-bolt"></i><span>Shockwave Therapy & IPL & E-LIGHT</span></div>
+      <div class="category-item"><i class="fas fa-sun"></i><span>Laser & IPL Machine</span></div>
+      <div class="category-item"><i class="fas fa-fill-drip"></i><span>Anti Freezing Membrane</span></div>
+      <div class="category-item"><i class="fas fa-microscope"></i><span>Micro Needles Therapy Device</span></div>
+      <div class="category-item"><i class="fas fa-heartbeat"></i><span>Multi-functional Slimming Series</span></div>
+      <div class="category-item"><i class="fas fa-smile"></i><span>Anti Wrinkle Series</span></div>
+      <div class="category-item"><i class="fas fa-leaf"></i><span>Hair Regrowth</span></div>
+      <div class="category-item"><i class="fas fa-hand-sparkles"></i><span>Velashape</span></div>
+      <div class="category-item"><i class="fas fa-microchip"></i><span>CO2 Laser Machine</span></div>
+      <div class="category-item"><i class="fas fa-gem"></i><span>Alexandrite Laser 755nm</span></div>
+      <div class="category-item"><i class="fas fa-star-of-life"></i><span>PICO ND YAG Laser Machine</span></div>
+      <div class="category-item"><i class="fas fa-wave-square"></i><span>Thulium Laser</span></div>
+      <div class="category-item"><i class="fas fa-fan"></i><span>Coolwaves Machine</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="mission-section">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-card reveal">
+        <div class="mission-icon"><i class="fas fa-bullseye"></i></div>
+        <h3>Our Mission</h3>
+        <p>To empower healthcare professionals with cutting-edge medical technology that enhances patient outcomes. We strive to make advanced aesthetic and therapeutic devices accessible, reliable, and effective worldwide.</p>
+      </div>
+      <div class="mission-card reveal">
+        <div class="mission-icon"><i class="fas fa-eye"></i></div>
+        <h3>Our Vision</h3>
+        <p>To become a globally recognized leader in medical aesthetics, driving innovation and setting new standards for quality, safety, and customer care.</p>
+      </div>
+      <div class="mission-card reveal">
+        <div class="mission-icon"><i class="fas fa-handshake"></i></div>
+        <h3>Our Values</h3>
+        <p>Integrity, innovation, customer-centricity, and continuous improvement. We believe in long-term partnerships and mutual growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Long Text Description (similar to original) -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-text reveal" style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="text-align: center;">Technology of Health & Beauty</h2>
+      <p>Evanston Medical Limited is a modern medical equipment manufacturer with high specification and strict ISO standards. We possess world-class advanced production technology and standard testing systems. Our company integrates R&D, production, sales, technical services, training, and operations.</p>
+      <p>We have a professional team of high-tech R&D personnel and senior management. Our strong technical force and perfect service system ensure efficiency and competitiveness. We adhere to "people-oriented, innovation development, quality first, customer foremost" as our core philosophy.</p>
+      <p>Our business principles: high starting point, high positioning, high quality, high efficiency. We believe in "excellence, customer first". Product quality management is always our top priority. We are a leading international beauty equipment brand export base, providing processing platforms, import/export business information, and cooperation projects for the international cosmetics industry.</p>
+      <p>We provide comprehensive and personalized services, helping customers build high-quality, diverse beauty equipment brands. We have gradually established a leading position in the industry, providing scientifically rigorous, authoritative, and effective use guarantees for users worldwide.</p>
+      <p>Following our corporate philosophy of "Technology helps beauty, Critical Medicine", we use successful new concept marketing models and global R&D technology support. We have demonstrated the outstanding contribution of science to beauty, sharing the highest level of beauty with all humanity. Evanston Medical is moving forward with a brand new image – your true partner!</p>
+      <p>Our products are exported to the Americas, Europe, Middle East, Africa, and Southeast Asia. You can find our equipment in major cities worldwide, winning support from overseas customers. We have established a strong position in the UK and globally.</p>
+      <p>The company adheres to training, learning, and attracting talent. We cultivate motivated employees who adapt to society, serve the industry, and contribute to the nation. Our perfect R&D, sales, and after-sales service system ensures we can provide sales, training, technical exchange, maintenance, and a full range of quality services at any time.</p>
+      <p>After years of development, the "Evanston Medical" brand has established a strong reputation and brand awareness in the medical aesthetics industry. We are determined to become a famous manufacturer of medical cosmetic equipment through rapid development, constant innovation, and change. Our principle is to "serve customer service as the reason for existence". We adhere to "customer-centric, continuous value creation, building the Evanston brand". Through untiring pursuit, strong team learning ability, constant self-improvement, and self-transcendence, we stay on the cutting edge.</p>
+      <p>We continue to compete with ourselves. Our main products include: Cryolipolysis, Lipolaser, Pressotherapy, IPL/Yag Laser, Shockwave Therapy, HIFU, Derma Roller, Vacuum Cavitation RF, Spa series, Laser hair removal, Thermage, Laser Comb, and multi-functional weight loss series. Evanston Medical's mission is "creating a British own brand and achieving the ideal of global healthcare".</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Bar -->
+<section class="contact-bar">
+  <div class="container">
+    <h3>Get In Touch With Our Team</h3>
+    <div class="contact-details">
+      <a href="tel:+447452295699"><i class="fas fa-phone-alt"></i> +44 7445 2295699</a>
+      <a href="https://wa.me/447452295699" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Evanston Medical Ltd</h4>
+        <p>Premium medical equipment supplier serving healthcare professionals across the United Kingdom and worldwide.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul><li><a href="#">About Us</a></li><li><a href="#">Hot Sale</a></li><li><a href="#">Shop</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul><li><a href="#">Diagnostic Equipment</a></li><li><a href="#">Patient Monitoring</a></li><li><a href="#">Surgical Instruments</a></li><li><a href="#">Mobility Aids</a></li><li><a href="#">Hospital Furniture</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul><li><i class="fas fa-map-marker-alt"></i> 42 Harley Street, London, W1G 9PS</li><li><i class="fas fa-phone"></i> +44 20 7946 0138</li><li><i class="fab fa-whatsapp"></i> +44 7445 2295699</li><li><i class="fas fa-envelope"></i> info@evanstonmedical.co.uk</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Evanston Medical Limited. All rights reserved. Registered in England and Wales.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="whatsapp-float" onclick="whatsappOrder('medical equipment')">
+  <i class="fab fa-whatsapp"></i>
+</div>
+
+<script>
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('show'));
+  });
+
+  function whatsappOrder(productName) {
+    const phone = "447452295699";
+    const text = `Hello Evanston Medical, I am interested in your products. Please share more details.`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // Scroll reveal animation
+  const reveals = document.querySelectorAll('.reveal');
+  function revealOnScroll() {
+    for (let i = 0; i < reveals.length; i++) {
+      const windowHeight = window.innerHeight;
+      const elementTop = reveals[i].getBoundingClientRect().top;
+      const revealPoint = 100;
+      if (elementTop < windowHeight - revealPoint) {
+        reveals[i].classList.add('active');
+      }
+    }
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+</body>
+</html>

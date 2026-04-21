@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Evanston Medical - Contact Us</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fefefe;
+      color: #1a2a3a;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --primary: #0f6e6b;
+      --primary-dark: #0a5250;
+      --primary-light: #2c9c98;
+      --secondary: #2c7da0;
+      --light-bg: #f0f7f6;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      /* padding: 16px 0; */
+    }
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 100px;
+      height: 100px;
+      /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+    .logo-text h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+    .logo-text p {
+      font-size: 0.7rem;
+      letter-spacing: 1.2px;
+      color: var(--primary-light);
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--gray-800);
+      transition: 0.3s;
+      position: relative;
+      padding: 8px 0;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary);
+    }
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
+        padding: 24px 0 16px;
+        text-align: center;
+      }
+      .nav-links.show { display: flex; }
+      .nav-container { padding: 0 20px; }
+      .logo-text h2 { font-size: 1rem; }
+      .logo-text p { font-size: 0.6rem; }
+      .logo-icon { width:100px; height: 100px; }
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, rgba(15,110,107,0.92), rgba(44,124,160,0.88)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1600&h=400&fit=crop');
+      background-size: cover;
+      background-position: center;
+      padding: 80px 32px;
+      text-align: center;
+      color: white;
+    }
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      animation: glowPulse 2s infinite alternate;
+    }
+    .page-header p {
+      font-size: 1.2rem;
+    }
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 0px rgba(255,255,255,0.3); }
+      100% { text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+    }
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 2rem; }
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Contact Info Cards */
+    .contact-info-section {
+      padding: 60px 0 30px;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .contact-card {
+      background: white;
+      padding: 32px 24px;
+      border-radius: 28px;
+      text-align: center;
+      transition: all 0.4s;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-100);
+    }
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+    .contact-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .contact-icon i {
+      font-size: 2rem;
+      color: white;
+    }
+    .contact-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+    .contact-card p {
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+    .contact-card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contact Form + Map Section */
+    .form-section {
+      padding: 40px 0 60px;
+      background: var(--light-bg);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .form-container {
+      background: white;
+      padding: 36px;
+      border-radius: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .form-container h3 {
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15,110,107,0.1);
+    }
+    .submit-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s;
+    }
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(0.98);
+    }
+    .form-success {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 12px;
+      border-radius: 28px;
+      margin-top: 16px;
+      text-align: center;
+      display: none;
+    }
+    /* Updated map-container styles (fully responsive) */
+    .map-container {
+      background: white;
+      padding: 20px;
+      border-radius: 32px;
+      box-shadow: var(--shadow-md);
+      height: auto;
+    }
+    .map-placeholder {
+      /* background: var(--gray-100); */
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      /* padding: 20px; */
+      color: var(--gray-600);
+      height: auto;
+    }
+    .map-placeholder img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      object-fit: cover;
+    }
+    .map-placeholder p {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-container { padding: 24px; }
+      .map-container { padding: 15px; }
+      .map-placeholder { padding: 15px; }
+      .map-placeholder p { font-size: 0.9rem; }
+    }
+    @media (max-width: 480px) {
+      .map-placeholder p { font-size: 0.85rem; }
+    }
+
+    /* FAQ Section (makes page long) */
+    .faq-section {
+      padding: 60px 0;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary-light);
+      margin: 16px auto 0;
+      border-radius: 3px;
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+    }
+    .faq-item {
+      background: white;
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .faq-item:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow-md);
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-top: 0;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      margin-top: 16px;
+    }
+    .faq-icon {
+      transition: transform 0.3s;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    /* WhatsApp Support Banner */
+    .whatsapp-banner {
+      background: linear-gradient(135deg, #128C7E, #25D366);
+      color: white;
+      padding: 50px 32px;
+      text-align: center;
+      border-radius: 32px;
+      margin: 40px 0;
+    }
+    .whatsapp-banner h3 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .whatsapp-banner .btn-wa-banner {
+      background: white;
+      color: #25D366;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    .whatsapp-banner .btn-wa-banner:hover {
+      transform: scale(1.02);
+      background: #f0f0f0;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a2e2c;
+      color: #cbd5e6;
+      padding: 60px 0 30px;
+      margin-top: 60px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-col h4 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-light);
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+    .footer-col ul li a {
+      color: #cbd5e6;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .footer-col ul li a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .social-links a{
+      text-decoration: none
+    }
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: 0.3s;
+    }
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 999;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #128C7E;
+      animation: none;
+    }
+    .whatsapp-float i {
+      font-size: 2rem;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo-area">
+      <div class="logo-icon">
+        <img src="/images/Logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="logo-fallback" style="display: none;">EM</div>
+      </div>
+      <div class="logo-text">
+       
+      </div>
+    </div>
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="hot-sale.html">Hot Sale</a>
+      <a href="shop.html">Shop</a>
+      <a href="#" class="active">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-header">
+  <h1><i class="fa-solid fa-phone"></i> Contact Us</h1>
+  <p>We're here to help — reach out anytime</p>
+</section>
+
+<!-- Contact Info Cards -->
+<section class="contact-info-section">
+  <div class="container">
+    <div class="contact-cards" data-aos="fade-up">
+      <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3>Visit Us</h3>
+        <p>42 Harley Street, London<br>W1G 9PS, United Kingdom</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+        <h3>Call Us</h3>
+        <p><a href="tel:+442079460138">+44 20 7946 0138</a><br>Mon-Fri, 9am - 6pm</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+        <h3>WhatsApp</h3>
+        <p><a href="https://wa.me/447452295699" target="_blank">+44 7445 2295699</a><br>24/7 Support</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <h3>Email Us</h3>
+        <p><a href="mailto:info@evanstonmedical.co.uk">info@evanstonmedical.co.uk</a><br>Sales: sales@evanstonmedical.co.uk</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form + Map -->
+<section class="form-section">
+  <div class="container">
+    <div class="form-grid">
+      <div class="form-container" data-aos="fade-right">
+        <h3><i class="fas fa-paper-plane"></i> Send us a message</h3>
+   <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+
+  <input type="hidden" name="access_key" value="5665d026-adb4-4128-894d-ac1b0dc2b8aa">
+  <input type="checkbox" name="botcheck" style="display:none;">
+
+  <div class="form-group">
+    <input type="text" id="name" name="name" placeholder="Your full name " required>
+  </div>
+
+  <div class="form-group">
+    <input type="email" id="email" name="email" placeholder="Email address" required>
+  </div>
+
+  <div class="form-group">
+    <input type="tel" id="phone" name="phone" placeholder="Phone number">
+  </div>
+
+  <div class="form-group">
+    <textarea id="message" name="message" placeholder="Your message " required></textarea>
+  </div>
+
+  <button type="submit" class="submit-btn" id="submitBtn">
+    <i class="fas fa-paper-plane"></i> Send Message
+  </button>
+
+  <div id="formFeedback" class="form-success"></div>
+
+</form>
+      </div>
+      <!-- MODIFIED MAP CONTAINER (image + text, no iframe) -->
+      <div class="map-container" data-aos="fade-left">
+        <!-- <h3 style="margin-bottom: 20px; color: var(--primary-dark);"><i class="fas fa-building"></i> Our Medical Facility</h3> -->
+        <div class="map-placeholder">
+          <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=350&fit=crop" alt="Evanston Medical Facility" style="width: 100%; height: auto; border-radius: 20px; margin-bottom: 16px;">
+          <p><strong>📍 42 Harley Street, London, W1G 9PS</strong></p>
+          <p style="margin-top: 12px; line-height: 1.6;">Our state‑of‑the‑art medical facility is located in the heart of London’s renowned Harley Street district. We are easily accessible by tube (Baker Street or Regent's Park stations) and offer on‑site parking for patients and visitors.</p>
+          <!-- <p style="margin-top: 12px;"><i class="fas fa-phone-alt"></i> +44 20 7946 0138 &nbsp;|&nbsp; <i class="fab fa-whatsapp"></i> +44 7445 2295699</p> -->
+        </div>
+        <!-- <div style="margin-top: 20px; padding: 16px; background: var(--gray-100);   border-radius: 20px;">
+          <p><i class="fas fa-clock"></i> <strong>Business Hours:</strong><br>Monday - Friday: 9:00 AM – 6:00 PM<br>Saturday: 10:00 AM – 4:00 PM<br>Sunday: Closed (WhatsApp support available)</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp Support Banner -->
+<div class="container">
+  <div class="whatsapp-banner" data-aos="zoom-in">
+    <h3><i class="fab fa-whatsapp"></i> Need instant help?</h3>
+    <p>Chat with our medical support team directly on WhatsApp. We respond within minutes.</p>
+    <button class="btn-wa-banner" id="whatsappBannerBtn ">
+      <h2 >WhatsApp</h2>
+
+  </div>
+</div>
+
+<!-- FAQ Section (Long & Interactive) -->
+<section class="faq-section">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+    <div class="faq-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="faq-item">
+        <div class="faq-question">How do I place an order? <i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer">Simply browse our shop, click "Order via WhatsApp" on any product, and you'll be connected to our sales team. They'll help you complete the order.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you offer international shipping? <i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer">Yes, we ship worldwide. Delivery times vary by location. Contact us for a shipping quote.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What payment methods do you accept? <i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer">We accept bank transfer, credit card via invoice, and PayPal. Payment details are shared via WhatsApp after order confirmation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is there a warranty on products? <i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer">All our medical equipment comes with a 2-year standard warranty. Extended warranty options are available.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I get a sample or demo? <i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer">Yes, we offer virtual demos and, for qualified buyers, sample units. Contact our sales team for details.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What is your return policy? <i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer">We offer a 30-day return policy for unused products in original packaging. Refunds are processed within 7 business days.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Evanston Medical Ltd</h4>
+        <p>Premium medical equipment supplier serving healthcare professionals across the UK and worldwide.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="hot-sale.html">Hot Sale</a></li><li><a href="shop.html">Shop</a></li><li><a href="#">Contact Us</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul><li><a href="#">Slimming Equipment</a></li><li><a href="#">Laser Devices</a></li><li><a href="#">Therapy Systems</a></li><li><a href="#">Aesthetic Machines</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul><li><i class="fas fa-map-marker-alt"></i> 42 Harley Street, London</li><li><i class="fas fa-phone"></i> +44 20 7946 0138</li><li><i class="fab fa-whatsapp"></i> +44 7445 2295699</li><li><i class="fas fa-envelope"></i> info@evanstonmedical.co.uk</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2024 Evanston Medical Limited. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<div class="whatsapp-float" onclick="whatsappGeneral()"><i class="fab fa-whatsapp"></i></div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('show'));
+  });
+
+  // Contact form validation & submission (simulated backend)
+  const contactForm = document.getElementById('contactForm');
+  const feedbackDiv = document.getElementById('formFeedback');
+
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      feedbackDiv.style.display = 'block';
+      feedbackDiv.style.background = '#fee2e2';
+      feedbackDiv.style.color = '#b91c1c';
+      feedbackDiv.innerHTML = '❌ Please fill all required fields.';
+      setTimeout(() => feedbackDiv.style.display = 'none', 3000);
+      return;
+    }
+    if (!email.includes('@') || !email.includes('.')) {
+      feedbackDiv.style.display = 'block';
+      feedbackDiv.style.background = '#fee2e2';
+      feedbackDiv.style.color = '#b91c1c';
+      feedbackDiv.innerHTML = '❌ Please enter a valid email address.';
+      setTimeout(() => feedbackDiv.style.display = 'none', 3000);
+      return;
+    }
+
+    // Simulate sending (no actual backend)
+    feedbackDiv.style.display = 'block';
+    feedbackDiv.style.background = '#d1fae5';
+    feedbackDiv.style.color = '#065f46';
+    feedbackDiv.innerHTML = '✅ Thank you! Our medical support team will respond within 24 hours.';
+    contactForm.reset();
+    setTimeout(() => feedbackDiv.style.display = 'none', 5000);
+  });
+
+  // WhatsApp functions
+  function whatsappGeneral() {
+    const phone = "447452295699";
+    const text = "Hello Evanston Medical, I need assistance with your medical equipment. Please help me.";
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+  }
+  document.getElementById('whatsappBannerBtn')?.addEventListener('click', whatsappGeneral);
+
+  // FAQ Accordion
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    question.addEventListener('click', () => {
+      item.classList.toggle('active');
+    });
+  });
+
+  // Initialize AOS
+  AOS.init({ once: true, offset: 50, duration: 600 });
+</script>
+</body>
+</html>
